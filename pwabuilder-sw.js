@@ -376,7 +376,7 @@ const CACHED_URLS = [
 '/products/zx10.html',
 '/products/zx80.html',
 '/videos/getac-keywedge-barcode-reader-utility-edited.html'
-];
+]
 
 // Open cache on install.
 self.addEventListener('install', event => {
