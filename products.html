@@ -54,16 +54,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </script></head><body><div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar w-nav"><div class="_1400-container menu"><a href="/" class="w-nav-brand"><img src="images/https___s3.amazonaws.svg" loading="lazy" alt=""/></a><nav role="navigation" class="nav-menu w-nav-menu"><a href="/products" aria-current="page" class="nav-link w-nav-link w--current">Products</a><a href="/industries" class="nav-link w-nav-link">Industries</a><a href="/" class="nav-link w-nav-link">Solutions</a><a href="/video-solutions" class="nav-link w-nav-link">VIDEO Solutions</a><a href="/videos" class="nav-link videos w-nav-link">VIDEOS</a><a href="/get-in-touch" class="button menu w-button">Get In touch</a></nav><div class="w-nav-button"><div class="w-icon-nav-menu"></div></div></div></div><div class="standard-section"><div class="_1400-container"><h4 class="center-text orange-text">ALL PRODUCTS<br/></h4><h1 class="center-text">Select your product category<br/></h1><div class="w-dyn-list"><div role="list" class="collection-list w-dyn-items"><div role="listitem" class="collection-item w-dyn-item"><div class="card"><img src="images/b360_07_final-os.png" loading="lazy" alt="" sizes="(max-width: 479px) 72vw, (max-width: 767px) 75vw, (max-width: 991px) 35vw, (max-width: 1439px) 22vw, (max-width: 1919px) 15vw, 11vw" srcset="images/b360_07_final-os-p-500.png 500w, images/b360_07_final-os-p-800.png 800w, images/b360_07_final-os-p-1080.png 1080w, images/b360_07_final-os.png 1500w" class="image-2"/><h3 class="center-text">Rugged Laptops</h3><a href="/product-categories/laptops" class="button absolute w-button">View Products</a><a href="#" class="button absolute w-condition-invisible w-button">View Products</a></div></div><div role="listitem" class="collection-item w-dyn-item"><div class="card"><img src="images/a140g2_01-os.png" loading="lazy" alt="" sizes="(max-width: 479px) 72vw, (max-width: 767px) 75vw, (max-width: 991px) 35vw, (max-width: 1439px) 22vw, (max-width: 1919px) 15vw, 11vw" srcset="images/a140g2_01-os-p-500.png 500w, images/a140g2_01-os-p-800.png 800w, images/a140g2_01-os-p-1080.png 1080w, images/a140g2_01-os.png 1500w" class="image-2"/><h3 class="center-text">Rugged Tablets</h3><a href="/product-categories/tablets" class="button absolute w-button">View Products</a><a href="#" class="button absolute w-condition-invisible w-button">View Products</a></div></div><div role="listitem" class="collection-item w-dyn-item"><div class="card"><img src="images/product_page___solutions__2007312401.png" loading="lazy" alt="" class="image-2"/><h3 class="center-text">Software</h3><a href="/product-categories/software" class="button absolute w-button">View Products</a><a href="#" class="button absolute w-condition-invisible w-button">View Products</a></div></div><div role="listitem" class="collection-item w-dyn-item"><div class="card"><img src="images/bc03-1.png" loading="lazy" alt="" class="image-2"/><h3 class="center-text">Video Solutions</h3><a href="/product-categories/video-solutions" class="button absolute w-condition-invisible w-button">View Products</a><a href="/video-solutions" class="button absolute w-button">View Products</a></div></div></div></div></div></div><div class="footer"><div class="_1400-container"><div class="div-block-3"><div class="white-text center-text">© Getac 2024. All rights reserved.<br/></div><a href="/settings" class="white-text">Device Settings</a></div></div></div><script src="js/jquery.js" type="text/javascript"  ></script><script src="js/getac.8d78b86a9.js" type="text/javascript"></script><script>
 (function() {
-		var usergender = localStorage.getItem("gender");
-    var mylink = "/products/" + usergender + ".html";
-    const idleDurationSecs = 120;    // X number of seconds
-    const redirectUrl = mylink;  // Redirect idle users to this URL
+    var usergender = localStorage.getItem("gender");
+
+    // If gender is set, redirect to the product page
+    var mylink = usergender ? "/products/" + usergender + ".html" : "/index.html";
+
+    const idleDurationSecs = 120; // X number of seconds
+    const redirectUrl = mylink;   // Redirect idle users to this URL
     let idleTimeout; // variable to hold the timeout, do not modify
 
     const resetIdleTimeout = function() {
-
         // Clears the existing timeout
-        if(idleTimeout) clearTimeout(idleTimeout);
+        if (idleTimeout) clearTimeout(idleTimeout);
 
         // Set a new idle timeout to load the redirectUrl after idleDurationSecs
         idleTimeout = setTimeout(() => location.href = redirectUrl, idleDurationSecs * 1000);
