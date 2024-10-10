@@ -60,16 +60,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </script></head><body><div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar w-nav"><div class="_1400-container menu"><a href="/" class="w-nav-brand"><img src="images/https___s3.amazonaws.svg" loading="lazy" alt=""/></a><nav role="navigation" class="nav-menu w-nav-menu"><a href="/products" class="nav-link w-nav-link">Products</a><a href="/industries" class="nav-link w-nav-link">Industries</a><a href="/" class="nav-link w-nav-link">Solutions</a><a href="/video-solutions" class="nav-link w-nav-link">VIDEO Solutions</a><a href="/videos" class="nav-link videos w-nav-link">VIDEOS</a><a href="/get-in-touch" aria-current="page" class="button menu w-button w--current">Get In touch</a></nav><div class="w-nav-button"><div class="w-icon-nav-menu"></div></div></div></div><div class="standard-section"><div class="_1400-container"><h1 class="center-text"><strong>Get In Touch</strong><br/></h1><img src="images/getac-20contact-20qr-20code.png" loading="lazy" sizes="40vw" srcset="images/getac-20contact-20qr-20code-p-500.png 500w, images/getac-20contact-20qr-20code-p-800.png 800w, images/getac-20contact-20qr-20code-p-1080.png 1080w, images/getac-20contact-20qr-20code-p-1600.png 1600w, images/getac-20contact-20qr-20code.png 1968w" alt="" class="qr-code"/><h1 class="center-text"><strong>Scan Here</strong><br/></h1></div></div><div class="footer"><div class="_1400-container"><div class="div-block-3"><div class="white-text center-text">© Getac 2024. All rights reserved.<br/></div><a href="/settings" class="white-text">Device Settings</a></div></div></div><script src="js/jquery.js" type="text/javascript"  ></script><script src="js/getac.8d78b86a9.js" type="text/javascript"></script><script>
 (function() {
-		var usergender = localStorage.getItem("gender");
-    var mylink = "/products/" + usergender + ".html";
-    const idleDurationSecs = 120;    // X number of seconds
-    const redirectUrl = mylink;  // Redirect idle users to this URL
+    var usergender = localStorage.getItem("gender");
+
+    // If gender is set, redirect to the product page
+    var mylink = usergender ? "/products/" + usergender + ".html" : "/index.html";
+
+    const idleDurationSecs = 240; // X number of seconds
+    const redirectUrl = mylink;   // Redirect idle users to this URL
     let idleTimeout; // variable to hold the timeout, do not modify
 
     const resetIdleTimeout = function() {
-
         // Clears the existing timeout
-        if(idleTimeout) clearTimeout(idleTimeout);
+        if (idleTimeout) clearTimeout(idleTimeout);
 
         // Set a new idle timeout to load the redirectUrl after idleDurationSecs
         idleTimeout = setTimeout(() => location.href = redirectUrl, idleDurationSecs * 1000);
