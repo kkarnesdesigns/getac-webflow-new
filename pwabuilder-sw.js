@@ -444,3 +444,17 @@ self.addEventListener('install', event => {
     }
   }())
 })
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => {
+      return Promise.all(
+        CACHED_URLS.map(url => {
+          return cache.add(url).catch(err => {
+            console.error(`Failed to cache ${url}:`, err);
+          });
+        })
+      );
+    })
+  );
+});
