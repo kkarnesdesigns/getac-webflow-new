@@ -90,16 +90,18 @@ document.addEventListener('DOMContentLoaded', function () {
     </script>
 </body></div></div></div><div class="footer"><div class="_1400-container"><div class="div-block-3"><div class="white-text center-text">© Getac 2024. All rights reserved.<br/></div><a href="/settings" aria-current="page" class="white-text w--current">Device Settings</a></div></div></div><script src="js/jquery.js" type="text/javascript"  ></script><script src="js/getac.8d78b86a9.js" type="text/javascript"></script><script>
 (function() {
-		var usergender = localStorage.getItem("gender");
-    var mylink = "/products/" + usergender + ".html";
-    const idleDurationSecs = 120;    // X number of seconds
-    const redirectUrl = mylink;  // Redirect idle users to this URL
+    var usergender = localStorage.getItem("gender");
+
+    // If gender is set, redirect to the product page
+    var mylink = usergender ? "/products/" + usergender + ".html" : "/index.html";
+
+    const idleDurationSecs = 120; // X number of seconds
+    const redirectUrl = mylink;   // Redirect idle users to this URL
     let idleTimeout; // variable to hold the timeout, do not modify
 
     const resetIdleTimeout = function() {
-
         // Clears the existing timeout
-        if(idleTimeout) clearTimeout(idleTimeout);
+        if (idleTimeout) clearTimeout(idleTimeout);
 
         // Set a new idle timeout to load the redirectUrl after idleDurationSecs
         idleTimeout = setTimeout(() => location.href = redirectUrl, idleDurationSecs * 1000);
