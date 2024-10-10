@@ -1,5 +1,5 @@
-const CACHE_NAME = 'webflow-site-cache-v1';
-const urlsToCache = [
+const CACHE_NAME = 'getac-cache-staging-v2'
+const CACHED_URLS = [
 '/',
 '/get-in-touch.html',
 '/index.html',
