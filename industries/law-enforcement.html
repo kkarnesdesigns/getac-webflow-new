@@ -26,30 +26,24 @@ document.addEventListener('DOMContentLoaded', function () {
       // Get the current href of the link
       var currentHref = link.getAttribute('href');
 
-      // Check if the link points to the homepage '/'
-      if (currentHref === '/' || currentHref === '') {
+      // If the link is an absolute path to the homepage
+      if (currentHref === '/' || currentHref === window.location.origin + '/') {
         // Prevent the default link action
         event.preventDefault();
 
-        // Set the href to index.html
-        var newHref = 'index.html';
+        // Set the href to the absolute index.html path
+        var newHref = window.location.origin + '/index.html';
 
-        // Set the new href value
-        link.setAttribute('href', newHref);
-
-        // Redirect to the new URL with index.html
+        // Redirect to the homepage with index.html
         window.location.href = newHref;
       } 
-      // If the link doesn't already have a file extension (like .html, .pdf, etc.)
-      else if (currentHref && !currentHref.includes('.')) {
+      // If the link doesn't already have a file extension and isn't targeting the homepage
+      else if (currentHref && !currentHref.includes('.') && currentHref !== '/') {
         // Prevent the default link action
         event.preventDefault();
 
         // Append .html to the href
         var newHref = currentHref + '.html';
-
-        // Set the new href value
-        link.setAttribute('href', newHref);
 
         // Redirect to the new URL with .html
         window.location.href = newHref;
