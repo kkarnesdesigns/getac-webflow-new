@@ -1,6 +1,10 @@
 const CACHE_NAME = 'getac-cache-staging-v2'
 const CACHED_URLS = [
 '/',
+'/pwabuilder-sw.js',
+'/manifest.json',
+'/ajax.googleapis.com/robots.txt',
+'/ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js',
 '/get-in-touch.html',
 '/index.html',
 '/industries.html',
