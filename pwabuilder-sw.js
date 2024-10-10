@@ -372,7 +372,6 @@ const urlsToCache = [
 '/products/zx10.html',
 '/products/zx80.html',
 '/videos/getac-keywedge-barcode-reader-utility-edited.html'
-]
 ];
 
 // Install and cache important resources
