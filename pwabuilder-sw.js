@@ -13,6 +13,7 @@ const CACHED_URLS = [
 '/videos.html',
 '/css/getac.3a1056150.css',
 '/css/getac.e089bbbd8.css',
+'/css/getac.e089bbbd8.css',
 '/images/0221_b360-pro_9-p-1080.png',
 '/images/0221_b360-pro_9-p-500.png',
 '/images/0221_b360-pro_9-p-800.png',
