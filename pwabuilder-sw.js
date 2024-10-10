@@ -431,3 +431,16 @@ self.addEventListener('activate', event => {
     )
   }())
 })
+
+// Open cache on install with error logging
+self.addEventListener('install', event => {
+  event.waitUntil(async function () {
+    const cache = await caches.open(CACHE_NAME)
+
+    try {
+      await cache.addAll(CACHED_URLS)
+    } catch (error) {
+      console.error('Failed to cache resources:', error)
+    }
+  }())
+})
