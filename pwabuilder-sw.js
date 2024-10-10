@@ -374,42 +374,56 @@ const urlsToCache = [
 '/videos/getac-keywedge-barcode-reader-utility-edited.html'
 ];
 
-// Install and cache important resources
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
-  );
-});
+// Open cache on install.
+self.addEventListener('install', event => {
+  event.waitUntil(async function () {
+    const cache = await caches.open(CACHE_NAME)
 
-// Fetch resources and serve from cache if offline
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        if (response) {
-          return response; // Return cached resource
-        }
-        return fetch(event.request); // Fallback to network
-      })
-  );
-});
+    await cache.addAll(CACHED_URLS)
+  }())
+})
 
-// Activate event to clean up old caches if necessary
-self.addEventListener('activate', (event) => {
-  const cacheWhitelist = [CACHE_NAME];
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
-});
+// Cache and update with stale-while-revalidate policy.
+self.addEventListener('fetch', event => {
+  const { request } = event
+
+  // Prevent Chrome Developer Tools error:
+  // Failed to execute 'fetch' on 'ServiceWorkerGlobalScope': 'only-if-cached' can be set only with 'same-origin' mode
+  //
+  // See also https://stackoverflow.com/a/49719964/1217468
+  if (request.cache === 'only-if-cached' && request.mode !== 'same-origin') {
+    return
+  }
+
+  event.respondWith(async function () {
+    const cache = await caches.open(CACHE_NAME)
+
+    const cachedResponsePromise = await cache.match(request)
+    const networkResponsePromise = fetch(request)
+
+    if (request.url.startsWith(self.location.origin)) {
+      event.waitUntil(async function () {
+        const networkResponse = await networkResponsePromise
+
+        await cache.put(request, networkResponse.clone())
+      }())
+    }
+
+    return cachedResponsePromise || networkResponsePromise
+  }())
+})
+
+// Clean up caches other than current.
+self.addEventListener('activate', event => {
+  event.waitUntil(async function () {
+    const cacheNames = await caches.keys()
+
+    await Promise.all(
+      cacheNames.filter((cacheName) => {
+        const deleteThisCache = cacheName !== CACHE_NAME
+
+        return deleteThisCache
+      }).map(cacheName => caches.delete(cacheName))
+    )
+  }())
+})
